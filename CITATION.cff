@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the article."
+title: "Benchmarking EEG against non-neural baselines for ADHD classification in children and adolescents: code and results"
+authors:
+  - family-names: "Sagar"
+    given-names: "Prem"
+    affiliation: "Department of Computer Science, St Joseph's University, Bengaluru, India"
+  - family-names: "S."
+    given-names: "Ruban"
+    affiliation: "School of Engineering, St Aloysius (Deemed to be University), Mangaluru, India"
+version: "1.0.0"
+license: MIT
+repository-code: "https://github.com/Prem16Sagar/EEG-ADHD-Benchmark-Increment"

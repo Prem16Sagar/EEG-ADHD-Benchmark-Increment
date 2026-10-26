@@ -1,0 +1,17 @@
+run,arm,AUC,bal_acc_0p5,brier,calib_slope,note
+A3_rq1_primary_est,base,0.631,0.595,0.24,0.55,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed
+A3_rq1_primary_est,full,0.665,0.627,0.229,0.58,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed
+A3_rq1_primary_test,base,0.624,0.608,0.24,0.54,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed
+A3_rq1_primary_test,full,0.67,0.615,0.232,0.51,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed
+A3_rq1sec_acq_R1,base,0.615,0.59,0.254,0.37,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed
+A3_rq1sec_acq_R1,full,0.663,0.578,0.259,0.31,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed
+A3_rq1sec_nobeh_R1,base,0.622,0.594,0.237,0.87,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed
+A3_rq1sec_nobeh_R1,full,0.655,0.608,0.245,0.39,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed
+A3_rq1_S1_est,base,0.62,0.586,0.243,0.55,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed
+A3_rq1_S1_est,full,0.647,0.674,0.239,0.54,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed
+A3_rq1_S2_est,base,0.586,0.554,0.245,0.58,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed
+A3_rq1_S2_est,full,0.587,0.588,0.253,0.4,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed
+A3_rq1sec_tunedC_R10,base,0.642,0.583,0.238,1.87,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed
+A3_rq1sec_tunedC_R10,full,0.642,0.585,0.232,1.75,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed
+A3_rq1sec_spectral_R10,base,0.631,0.595,0.24,0.55,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed
+A3_rq1sec_spectral_R10,full,0.7,0.632,0.22,0.75,uncalibrated repeat-averaged OOF scores; threshold 0.5; slope = LR of label on logit(score); in-fold Platt calibration (A3) not performed

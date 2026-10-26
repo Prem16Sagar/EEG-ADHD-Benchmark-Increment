@@ -1,0 +1,14 @@
+model,AUC,SD,LRT,p_LRT,OR_per_SD
+confounds only (LR),0.7447,0.0167,,,
+confounds + E2_soft_vote,0.7956,0.0145,15.7863,0.0001,2.758
+E2_soft_vote alone (LR recal.),0.7096,0.0037,,,
+confounds + E4_stacking,0.815,0.0136,21.9352,0.0,3.2519
+E4_stacking alone (LR recal.),0.7405,0.0045,,,
+confounds + E5_topk_soft,0.8249,0.0136,24.4638,0.0,3.7262
+E5_topk_soft alone (LR recal.),0.7532,0.0045,,,
+confounds + E6_CA_weighted,0.803,0.0147,18.421,0.0,3.0278
+E6_CA_weighted alone (LR recal.),0.723,0.0037,,,
+confounds + B1_best_single,0.8274,0.0121,25.3312,0.0,3.919
+B1_best_single alone (LR recal.),0.7619,0.0048,,,
+confounds + B3_early_fusion,0.7784,0.0168,9.5359,0.002,2.0198
+B3_early_fusion alone (LR recal.),0.6708,0.0098,,,

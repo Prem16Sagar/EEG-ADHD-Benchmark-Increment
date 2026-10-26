@@ -1,0 +1,23 @@
+cohort,model,AUC,CI
+Nasrabadi (n=121),Confound benchmark (all proxies),0.803,0.72-0.88
+BALLADEER (n=121),Confound benchmark (all proxies),0.649,0.54-0.77
+Nasrabadi (n=121),Best single member (inner-selected),0.748,0.69-0.85
+BALLADEER (n=121),Best single member (inner-selected),0.657,0.59-0.79
+Nasrabadi (n=121),Soft vote (30 members),0.713,0.62-0.81
+BALLADEER (n=121),Soft vote (30 members),0.644,0.56-0.76
+Nasrabadi (n=121),Top-5 soft vote,0.752,0.67-0.84
+BALLADEER (n=121),Top-5 soft vote,0.655,0.57-0.77
+Nasrabadi (n=121),Confound-aware weighted vote,0.724,0.64-0.82
+BALLADEER (n=121),Confound-aware weighted vote,0.648,0.57-0.76
+Nasrabadi (n=121),Riemannian LR,0.714,0.63-0.81
+BALLADEER (n=121),Riemannian LR,0.438,0.32-0.55
+Nasrabadi (n=121),Spectral LR,0.597,0.51-0.71
+BALLADEER (n=121),Spectral LR,0.704,0.63-0.81
+Nasrabadi (n=121),wPLI LR,0.61,0.52-0.72
+BALLADEER (n=121),wPLI LR,0.489,0.38-0.59
+BALLADEER (n=121),Age+sex only,0.718,0.62-0.82
+BALLADEER (n=121),Acquisition proxies only,0.613,0.50-0.72
+Nasrabadi (n=121),Benchmark + top-5 stacking,0.848,0.79-0.92
+BALLADEER (n=121),Benchmark + top-5 stacking,0.661,0.57-0.78
+Nasrabadi (n=121),Benchmark + confound-aware stacking,0.838,0.77-0.91
+BALLADEER (n=121),Benchmark + confound-aware stacking,0.654,0.56-0.77

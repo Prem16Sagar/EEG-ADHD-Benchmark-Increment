@@ -1,0 +1,56 @@
+item,row,v1,v2,v3,status,source
+Fig1,age 6,1.0,1.0,1,,rq1_A3.load('primary')
+Fig1,age 7,3.0,3.0,2,,rq1_A3.load('primary')
+Fig1,age 8,6.0,5.0,2,,rq1_A3.load('primary')
+Fig1,age 9,3.0,7.0,3,,rq1_A3.load('primary')
+Fig1,age 10,1.0,7.0,2,,rq1_A3.load('primary')
+Fig1,age 11,3.0,3.0,5,,rq1_A3.load('primary')
+Fig1,age 12,0.0,9.0,2,,rq1_A3.load('primary')
+Fig1,age 13,5.0,4.0,0,,rq1_A3.load('primary')
+Fig1,age 14,0.0,7.0,1,,rq1_A3.load('primary')
+Fig1,age 15,1.0,5.0,1,,rq1_A3.load('primary')
+Fig1,age 16,1.0,4.0,1,,rq1_A3.load('primary')
+Fig1,age 17,3.0,3.0,0,,rq1_A3.load('primary')
+Fig1,age 18,15.0,1.0,0,,rq1_A3.load('primary')
+Fig2,"BALLADEER, Slackline L1 (n = 121) | Age + sex (6-learner vote)",0.721,0.621,0.819,pre,
+Fig2,"BALLADEER, Slackline L1 (n = 121) | Acquisition proxies (vote)",0.618,0.504,0.725,pre,
+Fig2,"BALLADEER, Slackline L1 (n = 121) | Age, sex, L1 behaviour (LR; RQ1 base)",0.631,0.521,0.738,pre,
+Fig2,"BALLADEER, Slackline L1 (n = 121) | Age bands, sex, behaviour (LR)",0.764,0.666,0.854,post,
+Fig2,"BALLADEER, Slackline L1 (n = 121) | Spectral power (LR)",0.719,0.629,0.813,pre,
+Fig2,"BALLADEER, Slackline L1 (n = 121) | Best single model (inner-selected)",0.689,0.595,0.787,pre,
+Fig2,"BALLADEER, Slackline L1 (n = 121) | Soft vote, 30 models",0.661,0.563,0.756,pre,
+Fig2,"BALLADEER, Slackline L1 (n = 121) | Top-5 soft vote",0.674,0.572,0.771,pre,
+Fig2,"BALLADEER, Slackline L1 (n = 121) | RQ1 base + EEG stack",0.665,0.563,0.766,pre,
+Fig2,"BALLADEER, Slackline L1 (n = 121) | Age bands base + EEG stack",0.784,0.691,0.87,post,
+Fig2,Nasrabadi (n = 121) | Recording duration only,0.639,0.535,0.739,post,
+Fig2,Nasrabadi (n = 121) | Recording-condition proxies,0.766,0.68,0.844,post,
+Fig2,Nasrabadi (n = 121) | All six proxies (vote),0.805,0.724,0.878,pre,
+Fig2,Nasrabadi (n = 121) | Riemannian covariance (LR),0.726,0.63,0.812,pre,
+Fig2,Nasrabadi (n = 121) | Best single model (inner-selected),0.772,0.685,0.85,pre,
+Fig2,"Nasrabadi (n = 121) | Soft vote, 30 models",0.716,0.622,0.806,pre,
+Fig2,Nasrabadi (n = 121) | Top-5 soft vote,0.76,0.668,0.84,pre,
+Fig2,Nasrabadi (n = 121) | Proxies + top-5 vote (stack),0.861,0.789,0.922,pre,
+Fig3b,Primary (diagnosed label),0.035,-0.037,0.11,pre,
+Fig3b,Acquisition proxies in both models,0.048,-0.029,0.124,pre,
+Fig3b,Over age + sex only (no behaviour),0.033,-0.076,0.142,pre,
+Fig3b,Clinically verified cases (S1 label),0.027,-0.052,0.105,pre,
+Fig3b,Recruitment group label (S2),0.001,-0.063,0.063,pre,
+Fig3b,Tuned regularisation,-0.0,-0.06,0.059,pre,
+Fig3b,Ages 6-17 only,0.021,-0.079,0.118,post,
+Fig3b,Age-band base model,0.02,-0.033,0.078,post,
+Fig3b,Level 6 behaviour and EEG,-0.006,-0.051,0.04,post,
+Fig3b,Aperiodic features re-fitted,0.025,-0.052,0.103,post,
+Fig3b,Spectral power only,0.07,-0.005,0.144,post,
+Fig3a,null mean/sd,-0.027,0.041,,,A3_rq1_primary_test_null.csv
+Fig4a,Riemannian covariance,0.2282,0.1614,0.3148,pre,
+Fig4a,wPLI connectivity,0.4141,0.3357,0.4913,pre,
+Fig4a,Aperiodic,0.4564,0.2884,0.5884,pre,
+Fig4a,Spectral,0.6743,0.607,0.7519,pre,
+Fig4a,Complexity,0.7498,0.6591,0.8096,pre,
+Fig4b,L1->L1,0.6417,0.5434,0.7333,pre,p=nan
+Fig4b,L1->L6,0.7067,0.6014,0.8007,pre,p=0.002
+Fig4b,L1->L11,0.6111,0.499,0.722,pre,p=0.0778
+Fig4b,L6->L6,0.5675,0.4526,0.6797,pre,p=nan
+Fig4b,L6->L1,0.6814,0.5853,0.7775,pre,p=0.0319
+Fig4b,L11->L11,0.5392,0.4226,0.653,pre,p=nan
+Fig4b,L11->L1,0.5905,0.4733,0.7044,pre,p=0.6267
