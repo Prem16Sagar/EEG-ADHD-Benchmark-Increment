@@ -1,0 +1,3 @@
+model,AUC_avgscore,CI_lo,CI_hi,AUC_mean_reps
+age+sex LR,0.5404,0.4212,0.6619,0.5352
+age+sex 6-learner vote,0.6296,0.4981,0.7526,0.6319

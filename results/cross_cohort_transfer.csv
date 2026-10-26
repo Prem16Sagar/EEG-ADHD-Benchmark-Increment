@@ -1,0 +1,39 @@
+alignment,direction,model,AUC,CI_lo,CI_hi
+none,Nasrabadi->BALLADEER,E2_soft_vote,0.476,0.363,0.591
+none,Nasrabadi->BALLADEER,M_F1_spectral__lr,0.44,0.335,0.549
+none,Nasrabadi->BALLADEER,M_F2_aperiodic__lr,0.468,0.361,0.575
+none,Nasrabadi->BALLADEER,M_F3_connectivity__lr,0.523,0.409,0.64
+none,Nasrabadi->BALLADEER,M_F4_complexity__lr,0.363,0.255,0.477
+none,Nasrabadi->BALLADEER,M_F5_riemann__lr,0.467,0.36,0.581
+none,Nasrabadi->BALLADEER,M_F5_riemann__svm,0.645,0.539,0.745
+none,BALLADEER->Nasrabadi,E2_soft_vote,0.501,0.394,0.602
+none,BALLADEER->Nasrabadi,M_F1_spectral__lr,0.559,0.449,0.667
+none,BALLADEER->Nasrabadi,M_F2_aperiodic__lr,0.479,0.366,0.58
+none,BALLADEER->Nasrabadi,M_F3_connectivity__lr,0.652,0.55,0.75
+none,BALLADEER->Nasrabadi,M_F4_complexity__lr,0.375,0.276,0.475
+none,BALLADEER->Nasrabadi,M_F5_riemann__lr,0.536,0.434,0.636
+none,BALLADEER->Nasrabadi,M_F5_riemann__svm,0.297,0.211,0.394
+none,cohort identifiability,F1_spectral,0.958,,
+none,cohort identifiability,F2_aperiodic,0.974,,
+none,cohort identifiability,F3_connectivity,0.99,,
+none,cohort identifiability,F4_complexity,0.95,,
+none,cohort identifiability,F5_riemann,1.0,,
+cohort_norm,Nasrabadi->BALLADEER,E2_soft_vote,0.449,0.343,0.562
+cohort_norm,Nasrabadi->BALLADEER,M_F1_spectral__lr,0.456,0.35,0.57
+cohort_norm,Nasrabadi->BALLADEER,M_F2_aperiodic__lr,0.479,0.372,0.582
+cohort_norm,Nasrabadi->BALLADEER,M_F3_connectivity__lr,0.542,0.432,0.655
+cohort_norm,Nasrabadi->BALLADEER,M_F4_complexity__lr,0.357,0.252,0.466
+cohort_norm,Nasrabadi->BALLADEER,M_F5_riemann__lr,0.487,0.379,0.599
+cohort_norm,Nasrabadi->BALLADEER,M_F5_riemann__svm,0.583,0.48,0.685
+cohort_norm,BALLADEER->Nasrabadi,E2_soft_vote,0.526,0.419,0.628
+cohort_norm,BALLADEER->Nasrabadi,M_F1_spectral__lr,0.549,0.446,0.646
+cohort_norm,BALLADEER->Nasrabadi,M_F2_aperiodic__lr,0.471,0.365,0.575
+cohort_norm,BALLADEER->Nasrabadi,M_F3_connectivity__lr,0.65,0.548,0.748
+cohort_norm,BALLADEER->Nasrabadi,M_F4_complexity__lr,0.381,0.286,0.485
+cohort_norm,BALLADEER->Nasrabadi,M_F5_riemann__lr,0.51,0.41,0.611
+cohort_norm,BALLADEER->Nasrabadi,M_F5_riemann__svm,0.351,0.257,0.452
+cohort_norm,cohort identifiability,F1_spectral,0.972,,
+cohort_norm,cohort identifiability,F2_aperiodic,0.952,,
+cohort_norm,cohort identifiability,F3_connectivity,0.554,,
+cohort_norm,cohort identifiability,F4_complexity,0.768,,
+cohort_norm,cohort identifiability,F5_riemann,0.085,,

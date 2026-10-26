@@ -1,0 +1,69 @@
+analysis,train,test,ages,alignment,model,n,n_pos,AUC,CI_lo,CI_hi
+RQ4,Nasrabadi,BALLADEER,all,none,F1_spectral,121,79.0,0.5015,0.3864,0.6091
+RQ4,Nasrabadi,BALLADEER,all,none,F2_aperiodic,121,79.0,0.4922,0.3836,0.5977
+RQ4,Nasrabadi,BALLADEER,all,none,F3_connectivity,121,79.0,0.5313,0.4222,0.6402
+RQ4,Nasrabadi,BALLADEER,all,none,F4_complexity,121,79.0,0.3412,0.2381,0.4418
+RQ4,Nasrabadi,BALLADEER,all,none,F5_riemann,121,79.0,0.4684,0.3489,0.5865
+RQ4,Nasrabadi,BALLADEER,all,none,stack,121,79.0,0.5145,0.3945,0.6302
+RQ4,BALLADEER,Nasrabadi,all,none,F1_spectral,121,61.0,0.4765,0.371,0.5866
+RQ4,BALLADEER,Nasrabadi,all,none,F2_aperiodic,121,61.0,0.4566,0.3549,0.5579
+RQ4,BALLADEER,Nasrabadi,all,none,F3_connectivity,121,61.0,0.5727,0.4683,0.6765
+RQ4,BALLADEER,Nasrabadi,all,none,F4_complexity,121,61.0,0.3451,0.2508,0.4481
+RQ4,BALLADEER,Nasrabadi,all,none,F5_riemann,121,61.0,0.4331,0.3303,0.5451
+RQ4,BALLADEER,Nasrabadi,all,none,stack,121,61.0,0.4208,0.3216,0.5224
+RQ4,cohort identifiability,,all,none,F1_spectral,242,,0.928,,
+RQ4,cohort identifiability,,all,none,F2_aperiodic,242,,0.9689,,
+RQ4,cohort identifiability,,all,none,F3_connectivity,242,,0.89,,
+RQ4,cohort identifiability,,all,none,F4_complexity,242,,0.9281,,
+RQ4,cohort identifiability,,all,none,F5_riemann,242,,0.9983,,
+RQ4,Nasrabadi,BALLADEER,all,cohort_norm,F1_spectral,121,79.0,0.506,0.3933,0.6179
+RQ4,Nasrabadi,BALLADEER,all,cohort_norm,F2_aperiodic,121,79.0,0.4888,0.3834,0.5959
+RQ4,Nasrabadi,BALLADEER,all,cohort_norm,F3_connectivity,121,79.0,0.5347,0.4225,0.6393
+RQ4,Nasrabadi,BALLADEER,all,cohort_norm,F4_complexity,121,79.0,0.3535,0.2477,0.4602
+RQ4,Nasrabadi,BALLADEER,all,cohort_norm,F5_riemann,121,79.0,0.4316,0.327,0.5464
+RQ4,Nasrabadi,BALLADEER,all,cohort_norm,stack,121,79.0,0.4964,0.38,0.6082
+RQ4,BALLADEER,Nasrabadi,all,cohort_norm,F1_spectral,121,61.0,0.5347,0.43,0.6342
+RQ4,BALLADEER,Nasrabadi,all,cohort_norm,F2_aperiodic,121,61.0,0.4675,0.3642,0.5735
+RQ4,BALLADEER,Nasrabadi,all,cohort_norm,F3_connectivity,121,61.0,0.5738,0.4705,0.6803
+RQ4,BALLADEER,Nasrabadi,all,cohort_norm,F4_complexity,121,61.0,0.3582,0.2631,0.4574
+RQ4,BALLADEER,Nasrabadi,all,cohort_norm,F5_riemann,121,61.0,0.4189,0.3161,0.5263
+RQ4,BALLADEER,Nasrabadi,all,cohort_norm,stack,121,61.0,0.4637,0.3582,0.5689
+RQ4,cohort identifiability,,all,cohort_norm,F1_spectral,242,,0.8956,,
+RQ4,cohort identifiability,,all,cohort_norm,F2_aperiodic,242,,0.8682,,
+RQ4,cohort identifiability,,all,cohort_norm,F3_connectivity,242,,0.5753,,
+RQ4,cohort identifiability,,all,cohort_norm,F4_complexity,242,,0.7005,,
+RQ4,cohort identifiability,,all,cohort_norm,F5_riemann,242,,0.11,,
+RQ4,Nasrabadi,BALLADEER,7-12,none,F1_spectral,66,50.0,0.4375,0.2962,0.5813
+RQ4,Nasrabadi,BALLADEER,7-12,none,F2_aperiodic,66,50.0,0.51,0.36,0.6475
+RQ4,Nasrabadi,BALLADEER,7-12,none,F3_connectivity,66,50.0,0.5812,0.4188,0.7313
+RQ4,Nasrabadi,BALLADEER,7-12,none,F4_complexity,66,50.0,0.2725,0.145,0.4175
+RQ4,Nasrabadi,BALLADEER,7-12,none,F5_riemann,66,50.0,0.3962,0.2288,0.5713
+RQ4,Nasrabadi,BALLADEER,7-12,none,stack,66,50.0,0.455,0.2874,0.645
+RQ4,BALLADEER,Nasrabadi,7-12,none,F1_spectral,121,61.0,0.4691,0.3656,0.573
+RQ4,BALLADEER,Nasrabadi,7-12,none,F2_aperiodic,121,61.0,0.4746,0.3708,0.5732
+RQ4,BALLADEER,Nasrabadi,7-12,none,F3_connectivity,121,61.0,0.5893,0.4907,0.6888
+RQ4,BALLADEER,Nasrabadi,7-12,none,F4_complexity,121,61.0,0.4194,0.315,0.5211
+RQ4,BALLADEER,Nasrabadi,7-12,none,F5_riemann,121,61.0,0.5071,0.4033,0.6148
+RQ4,BALLADEER,Nasrabadi,7-12,none,stack,121,61.0,0.4825,0.379,0.5913
+RQ4,cohort identifiability,,7-12,none,F1_spectral,187,,0.9291,,
+RQ4,cohort identifiability,,7-12,none,F2_aperiodic,187,,0.9611,,
+RQ4,cohort identifiability,,7-12,none,F3_connectivity,187,,0.8589,,
+RQ4,cohort identifiability,,7-12,none,F4_complexity,187,,0.9371,,
+RQ4,cohort identifiability,,7-12,none,F5_riemann,187,,0.9902,,
+RQ4,Nasrabadi,BALLADEER,7-12,cohort_norm,F1_spectral,66,50.0,0.4825,0.3238,0.6338
+RQ4,Nasrabadi,BALLADEER,7-12,cohort_norm,F2_aperiodic,66,50.0,0.4738,0.315,0.635
+RQ4,Nasrabadi,BALLADEER,7-12,cohort_norm,F3_connectivity,66,50.0,0.5863,0.4237,0.7437
+RQ4,Nasrabadi,BALLADEER,7-12,cohort_norm,F4_complexity,66,50.0,0.31,0.17,0.4488
+RQ4,Nasrabadi,BALLADEER,7-12,cohort_norm,F5_riemann,66,50.0,0.35,0.2013,0.5088
+RQ4,Nasrabadi,BALLADEER,7-12,cohort_norm,stack,66,50.0,0.4375,0.2762,0.5925
+RQ4,BALLADEER,Nasrabadi,7-12,cohort_norm,F1_spectral,121,61.0,0.5243,0.4295,0.6265
+RQ4,BALLADEER,Nasrabadi,7-12,cohort_norm,F2_aperiodic,121,61.0,0.4951,0.3877,0.6
+RQ4,BALLADEER,Nasrabadi,7-12,cohort_norm,F3_connectivity,121,61.0,0.6033,0.4984,0.6997
+RQ4,BALLADEER,Nasrabadi,7-12,cohort_norm,F4_complexity,121,61.0,0.4322,0.3295,0.5342
+RQ4,BALLADEER,Nasrabadi,7-12,cohort_norm,F5_riemann,121,61.0,0.4842,0.3808,0.5874
+RQ4,BALLADEER,Nasrabadi,7-12,cohort_norm,stack,121,61.0,0.526,0.4243,0.6265
+RQ4,cohort identifiability,,7-12,cohort_norm,F1_spectral,187,,0.8345,,
+RQ4,cohort identifiability,,7-12,cohort_norm,F2_aperiodic,187,,0.7205,,
+RQ4,cohort identifiability,,7-12,cohort_norm,F3_connectivity,187,,0.5675,,
+RQ4,cohort identifiability,,7-12,cohort_norm,F4_complexity,187,,0.7372,,
+RQ4,cohort identifiability,,7-12,cohort_norm,F5_riemann,187,,0.1197,,

@@ -1,0 +1,26 @@
+# Addendum A2 — BALLADEER second cohort. Written BEFORE any BALLADEER signal was processed
+# (only README, demographics and one file's format were inspected). 2026-10-20.
+
+source: BALLADEER (Univ. Alicante), Kaggle copy downloaded by the author; README v1.0 (20/03/2025), CC BY 4.0 per Sci Data descriptor
+recording: CGX Quick-32r dry, 500 Hz, Slackline Level 1 (~5 min attention game) — one session per participant
+participants_with_lvl1_cgx: 123 (diagnosed yes 80 [group1 59, group2 21], diagnosed no 43); 'undetermined' (20) excluded; 9 labelled users lack the CGX file
+labels:
+  primary:     ADHD = diagnosed 'yes' ; control = diagnosed 'no'
+  sensitivity: ADHD = group 1 (clinically recruited) ; control = diagnosed 'no'
+preprocessing:
+  channels: the 19 Nasrabadi 10-20 sites (Fp1 Fp2 F3 F4 C3 C4 P3 P4 O1 O2 F7 F8 T7 T8 P7 P8 Fz Cz Pz)
+  reference: A2 (ear) to approximate Nasrabadi's ear reference
+  resample: 500 -> 128 Hz (polyphase), then the identical Nasrabadi chain (detrend, 50 Hz notch, 1-30 Hz, 4-s windows, fixed K=15)
+  bad_channels: flat (SD<1e-6) or SD > 5x channel median after filtering -> spherical-spline interpolation (label-free, per participant);
+                participant excluded if > 4 of 19 bad
+features: F1-F5 exactly as protocol.yaml
+confounds:
+  demographic: [age, sex]
+  acquisition: [duration_s, muscle_temporal_emg, line_ratio, drift_ratio, transient_frac, blink_frontal_kurt, motion_acc_sd]
+  # acquisition proxies computed as in the previous paper (feat_utils.confound_features) on 500 Hz data; motion = SD of accelerometer magnitude
+analysis:
+  within_cohort: identical members/ensembles/baselines/CV/seeds as protocol.yaml and addendum A1 (S_all, S_E6, S_E5)
+  benchmarks: B0 = confound vote on demographic+acquisition (primary); B0_acq and B0_demo reported separately
+  confirmatory_tests_balladeer: T1-T4 of protocol.yaml and A1_T1-T3, Holm within each family
+  cross_cohort (exploratory, after within-cohort): train Nasrabadi -> test BALLADEER and reverse, neural families only,
+    with and without per-cohort Riemannian re-centring / feature standardisation

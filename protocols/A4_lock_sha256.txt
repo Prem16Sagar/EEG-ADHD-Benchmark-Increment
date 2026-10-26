@@ -1,0 +1,6 @@
+492d090a41fb751dd0ea69bac1ea9e4ecf0deffdc8d9504eed7e7fabd802dfd3  protocol_addendum_A4_posthoc.yaml
+62d0c6cec09cb86b969c2aeb46134001c134f6ebbd496ce6c7cbcd9bc8d8e2b4  src/posthoc_A4.py
+b336bef6ef49031b6febac8215076d6a24b43a3c477c80fe2f0f9d16ab7a45bd  derived/behaviour_L6_A4.csv
+e6c6b4ac315bac99603d1a3f6faec2ac61108d41f4d3e9ed49126da9f82c1641  src/rq1_A3_sec.py
+6f64dd9a56222a6530587bc72d68f93605be11d55cd0597fb1dcb25291384c50  src/analyse_rq1_A3.py
+# Written 2026-10-22 (after A4 was run) from the files as they exist now; the A4 protocol hash 492d090a... was recorded in PROGRESS_LOG before running.

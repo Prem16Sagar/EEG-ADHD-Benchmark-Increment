@@ -1,0 +1,29 @@
+analysis,train,test,model,n,n_pos,AUC,CI_lo,CI_hi,note
+RQ3,Emotiv_AR,Emotiv_AR,F1_spectral,101,67,0.626,0.514,0.7379,
+RQ3,Emotiv_AR,Emotiv_AR,F2_aperiodic,101,67,0.5426,0.4227,0.6581,
+RQ3,Emotiv_AR,Emotiv_AR,F3_connectivity,101,67,0.687,0.5781,0.7884,
+RQ3,Emotiv_AR,Emotiv_AR,F4_complexity,101,67,0.6356,0.5074,0.7494,
+RQ3,Emotiv_AR,Emotiv_AR,F5_riemann,101,67,0.6383,0.5206,0.7502,
+RQ3,Emotiv_AR,Emotiv_AR,stack,101,67,0.6343,0.5158,0.7454,
+RQ3,Emotiv_AR,Emotiv_AR,dAUC demo+EEG minus demo,101,67,-0.0026,-0.0825,0.0689,AUC demo 0.719; demo+EEG 0.717
+RQ3,CGX_L1,CGX_L1,F1_spectral,101,67,0.6642,0.5491,0.773,
+RQ3,CGX_L1,CGX_L1,F2_aperiodic,101,67,0.5948,0.4789,0.7173,
+RQ3,CGX_L1,CGX_L1,F3_connectivity,101,67,0.4644,0.3455,0.5852,
+RQ3,CGX_L1,CGX_L1,F4_complexity,101,67,0.5957,0.4745,0.7129,
+RQ3,CGX_L1,CGX_L1,F5_riemann,101,67,0.5136,0.403,0.6313,
+RQ3,CGX_L1,CGX_L1,stack,101,67,0.5189,0.4034,0.6374,
+RQ3,CGX_L1,CGX_L1,dAUC demo+EEG minus demo,101,67,-0.0645,-0.1163,-0.0228,AUC demo 0.719; demo+EEG 0.655
+RQ3,CGX_L1,Emotiv_AR,F1_spectral,101,67,0.5689,0.4425,0.6883,
+RQ3,CGX_L1,Emotiv_AR,F2_aperiodic,101,67,0.5114,0.3951,0.6286,
+RQ3,CGX_L1,Emotiv_AR,F3_connectivity,101,67,0.6348,0.5123,0.7481,
+RQ3,CGX_L1,Emotiv_AR,F4_complexity,101,67,0.6409,0.5171,0.766,
+RQ3,CGX_L1,Emotiv_AR,F5_riemann,101,67,0.6874,0.5728,0.7946,
+RQ3,CGX_L1,Emotiv_AR,stack,101,67,0.6159,0.4903,0.7344,
+RQ3,CGX_L1,Emotiv_AR,dAUC demo+EEG minus demo,101,67,-0.0285,-0.0843,0.0259,AUC demo 0.719; demo+EEG 0.691
+RQ3,Emotiv_AR,CGX_L1,F1_spectral,101,67,0.5237,0.4069,0.6427,
+RQ3,Emotiv_AR,CGX_L1,F2_aperiodic,101,67,0.6128,0.4938,0.7283,
+RQ3,Emotiv_AR,CGX_L1,F3_connectivity,101,67,0.6089,0.4939,0.7248,
+RQ3,Emotiv_AR,CGX_L1,F4_complexity,101,67,0.662,0.5373,0.7766,
+RQ3,Emotiv_AR,CGX_L1,F5_riemann,101,67,0.6018,0.4908,0.7138,
+RQ3,Emotiv_AR,CGX_L1,stack,101,67,0.7081,0.5987,0.8086,
+RQ3,Emotiv_AR,CGX_L1,dAUC demo+EEG minus demo,101,67,0.0417,-0.0141,0.0992,AUC demo 0.719; demo+EEG 0.761

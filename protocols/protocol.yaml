@@ -1,0 +1,67 @@
+# Paper 2 analysis protocol — LOCKED before any model fitting (2026-10-20).
+# Any later change must be logged in PROGRESS_LOG.md as a deviation.
+
+dataset: nasrabadi            # 121 participants (61 ADHD / 60 control); audit in derived/data_audit.csv
+unit_of_analysis: participant
+
+preprocessing:                # identical to previous paper (comparability)
+  detrend: linear
+  notch_hz: 50
+  bandpass_hz: [1, 30]        # zero-phase Butterworth, order 4
+  reference: native
+  windows: {length_s: 4, fixed_K: 15, placement: evenly_spaced}
+
+feature_families:             # each family -> one participant-level vector
+  F1_spectral:     relative band power delta/theta/alpha/beta per channel (from previous paper)
+  F2_aperiodic:    FOOOF on mean window PSD, 2-30 Hz, per channel: aperiodic exponent, offset, alpha (7-13 Hz) peak CF and PW
+  F3_connectivity: wPLI node strength per band per channel (from previous paper)
+  F4_complexity:   permutation entropy (order 3), Higuchi FD (kmax 8) per channel (from previous paper)
+  F5_riemann:      tangent-space projection of mean 19x19 window covariance (1-30 Hz); reference point fit on training data only
+confounds:                    # previous paper's proxy set (recomputed and checked)
+  [duration_s, muscle_temporal_emg, line_ratio, drift_ratio, transient_frac, blink_frontal_kurt]
+  # n_samples dropped: identical information to duration_s
+
+base_learners:                # fixed hyperparameters, class_weight balanced where available
+  lr:   L2 logistic regression, C=1
+  lda:  LDA, solver lsqr, shrinkage auto
+  svm:  RBF SVC, C=1, gamma scale, Platt probabilities
+  rf:   random forest, 300 trees, min_samples_leaf 3
+  lgbm: LightGBM, 200 trees, 15 leaves, lr 0.05, subsample 0.8, colsample 0.8
+  knn:  kNN, k=15, distance weights
+members: 5 families x 6 learners = 30; every member = StandardScaler + learner, fit on training participants only
+
+ensembles:
+  E1_hard_vote:      majority vote of 30 members (score = fraction voting ADHD)
+  E2_soft_vote:      mean probability of 30 members            # PRIMARY standard ensemble
+  E3_weighted_soft:  weights = max(0, innerAUC - 0.5)
+  E4_stacking:       L2-LR (C=1) on inner out-of-fold member probabilities
+  E5_topk_soft:      soft vote of top-5 members by inner AUC
+  E6_CA_weighted:    weights = max(0, innerAUC - 0.5) * (1 - max_c |Spearman rho(member inner OOF prob, confound c)|)   # PRIMARY proposed (confound-aware)
+  E7_CA_exclude:     soft vote of members with max_c |rho| <= 0.30 (fallback: 5 least confound-correlated)
+  E8_channel_vote:   published-style: one LR per channel on that channel's features from all families, majority vote over 19 channels
+baselines:
+  B0_confound_vote:  soft vote of the 6 learners on confound features only   # PRIMARY benchmark
+  B1_best_single:    member with highest inner AUC (selected inside each outer fold)
+  B2_family_lr:      LR per family (descriptive)
+  B3_early_fusion:   LR on all neural features concatenated
+  B4_confound_lr / B4_confound_lgbm: as in previous paper (descriptive)
+
+cross_validation:
+  outer: stratified participant-wise 5-fold, repeats=10, seeds 0..9
+  inner: stratified 5-fold within each outer training set (member AUCs, weights, stacking inputs, confound correlations)
+  leakage_rules: scaling, tangent-space reference, member selection, weights, stacking all fit on outer-train only
+
+metrics:
+  primary: participant-level ROC-AUC, mean over repeats (per-repeat pooled out-of-fold)
+  secondary: balanced accuracy, sensitivity, specificity (threshold 0.5), Brier score, calibration slope
+  uncertainty: participant bootstrap (2000) on repeat-averaged OOF scores; SD across repeats
+  confound_dependence: max_c |Spearman rho(OOF score, confound c)|
+
+confirmatory_tests:            # paired, on repeat-averaged OOF scores; Holm correction across 4
+  T1: E2 vs B1   AUC (DeLong)              # does ensembling beat the best single member?
+  T2: E2 vs B0   AUC (DeLong)              # does the standard ensemble beat the confound benchmark?
+  T3: E6 vs B0   AUC (DeLong)              # does the confound-aware ensemble beat it?
+  T4: incremental value of E6 over confounds: likelihood-ratio test, logit(y) ~ confounds + E6 score vs confounds only
+exploratory: all other ensembles/baselines, E6 vs E2 confound dependence, member diversity (pairwise disagreement), per-family AUC
+alpha: 0.05
+seeds: {global: 0, outer_repeats: [0,1,2,3,4,5,6,7,8,9]}

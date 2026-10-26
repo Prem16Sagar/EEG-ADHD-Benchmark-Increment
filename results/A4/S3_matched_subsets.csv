@@ -1,0 +1,5 @@
+score,AUC_median,lo,hi,median_pairs
+B0_demo_vote,0.4888,0.3751,0.5923,30.0
+B2_F1_spectral_lr,0.7311,0.5695,0.8711,30.0
+score_base,0.5054,0.4164,0.5863,30.0
+score_full,0.5933,0.4698,0.7156,30.0

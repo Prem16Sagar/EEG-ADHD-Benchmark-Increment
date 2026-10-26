@@ -1,0 +1,32 @@
+# Addendum A4 — POST-HOC sensitivity analyses, written 2026-10-22 BEFORE running them.
+# Motivated by an external review (Review_2026-10-21) after all A3 results were seen. None replaces the locked A3 primary.
+# Everything reported as post hoc. Estimand everywhere: AUC of out-of-fold scores averaged over R repeats (as RQ1);
+# mean per-fold dAUC also reported. Outer 5-fold x R (seeds 0..R-1), inner 5-fold (1000r+k), L2-LR C=1 balanced.
+version: A4-1
+status: posthoc_specified_before_running
+S1_age_overlap:
+  sample: A2 L1 set restricted to age <= 17 (removes the age-18 cluster: 15 controls, 1 ADHD)
+  analyses: RQ1 contrast (M_full vs M_base, identical models) R=10; stratified EEG-row permutation R=1, B=500, one-sided;
+            benchmarks in the same sample: linear age+sex LR, 6-learner age+sex vote, EEG-only stack (R=10)
+S2_flexible_base:
+  base: one-hot age bands {6-8, 9-11, 12-14, 15-17, 18} + sex + B1-B4 (L2-LR); full = base + five-family EEG stack
+  analyses: R=10 estimate; permutation R=1, B=500; whole L1 sample (n=121)
+S3_matched_subsets:
+  method: 500 iterations; each = random-order greedy 1:1 matching ADHD:control within +/-1 year and same sex, then one
+          bootstrap resample of matched pairs; AUC of existing OOF scores (no refitting)
+  scores: A2 B0_demo_vote, A2 B2_F1_spectral_lr, A3 primary M_base and M_full (R=10)
+  report: median and 2.5-97.5 percentiles over iterations; median number of pairs
+S4_fooof_refit:
+  preprocessing: from the stored 128-Hz arrays (A2 re-referenced, interpolated): detrend, 50-Hz notch, 1-Hz high-pass
+                 (Butterworth order 4, zero-phase), NO low-pass; same fixed-K windows
+  fit: FOOOF fixed aperiodic mode, 2-40 Hz, peak_width_limits (1,8), max_n_peaks 4; same four parameters per channel
+  analyses: cross-level ICC(A,1) of F2-refit (L1/L6/L11, n=110); F2-refit family LR AUC on L1 (R=10);
+            RQ1 contrast with F2 replaced by F2-refit (R=10, no permutation)
+S5_nasrabadi_decomposition:
+  benchmarks: 6-learner soft vote (A2 learners) on (a) duration only, (b) recording-condition proxies only
+              [line_ratio, muscle_temporal_emg, drift_ratio, transient_frac, blink_frontal_kurt], (c) all six (=B0); R=10
+S6_level6_behaviour:
+  scoring: Slackline L6 TAGS with the A3 rules; L6 targets = flagType 0 (circle) and 1 (square) = 23 targets; non-targets
+           flagType 2 (rhombus) and 3 (doubleCircle) = 28. Target set inferred label-free from the 'correct' field and
+           spawn-time matching (0=circle, 1=square, 2=rhombus, 3=doubleCircle)
+  analyses: RQ1 contrast on L6 CGX EEG (n_bad <= 4) with L6 behaviour B1-B4: R=10 estimate; permutation R=1, B=500

@@ -1,0 +1,186 @@
+# Protocol addendum A3: LOCKED 2026-10-20 after user approval. No real-label RQ1 result existed at lock time.
+# Derived from protocol_addendum_A3_revised_draft.yaml (kept unchanged) plus the decisions block below.
+# Supersedes the analysis sections of 03_Paper2_Plan_for_Review.md once approved; that file is kept unchanged.
+# Parents (unchanged): protocol.yaml (sha256 dd295795...), protocol_addendum_A1.yaml, protocol_addendum_A2_balladeer.yaml
+version: A3-1
+date: 2026-10-20
+status: locked
+
+disclosure:
+  prior_exposure:
+    - "BALLADEER Slackline L1 CGX EEG: all five feature families, ensembles, stacking, demographics-only and acquisition-only
+      benchmarks were already evaluated against diagnosed labels (A2). Results seen by the analyst."
+    - 'Cross-cohort transfer (Nasrabadi <-> BALLADEER L1) seen; wPLI lead arose from ~50 exploratory comparisons.'
+  not_yet_examined_against_labels:
+    - 'Slackline behaviour (TAGS) for all children'
+    - 'BALLADEER Slackline L6 and L11 EEG'
+    - 'BALLADEER Emotiv EEG (AttentionRobotsDesktop, Cognifit) and Attention Robots GAME_DATA'
+  relabelled_results:
+    - "All previous likelihood-ratio tests on OOF scores (Nasrabadi A1; BALLADEER T4) are descriptive only, not inferential.
+      Reason: in-sample covariate fit plus dependent OOF scores, so the chi2 reference is invalid. Result files are not edited."
+
+hierarchy:
+  primary: RQ1  # EEG beyond demographics + valid task behaviour (BALLADEER L1 CGX)
+  secondary: RQ2a  # within-session cross-level reliability (L1/L6/L11), descriptive
+  exploratory: [RQ1_secondary_contrasts, RQ2b_level_transfer, RQ3_device_task_day_transfer, RQ4_cross_cohort]
+  follow_up_hypothesis: H_wPLI  # tested only on recordings not yet analysed; same children
+
+# ---------------------------------------------------------------- 1. data and labels
+data:
+  cohort: 'BALLADEER, official figshare release (doi:10.6084/m9.figshare.28676042) as downloaded by the user; demographics file lists 158 users vs 164 (62+102) in the descriptor paper (unresolved, Q2)'
+  eeg_primary: 'Slackline Level 1, CGX, preprocessing exactly as A2 (A2 deviations carried forward)'
+  sample: 'A2 analysable set (n=121; 79 diagnosed yes / 42 no) intersected with children passing behaviour validity (s4)'
+labels:
+  primary: 'diagnosed yes(1) vs no(0); undetermined excluded'  # decision pending (Q1)
+  sensitivity:
+    S1: 'group==1 (all diagnosed yes) vs diagnosed==no; excludes 20 group-2 diagnosed children (n=101 in A2 set)'
+    S2: 'group (1 vs 2) as recorded by recruitment (n=121)'
+  rule: 'sensitivity results are reported as robustness, not tested for significance against primary'
+
+# ---------------------------------------------------------------- 2. models (RQ1)
+models:
+  M_base: 'L2-logistic regression on [age, sex_male, behaviour features B1-B4]'
+  M_full: 'stacking. Level 1 = one L2-LR per EEG family (F1 spectral, F2 aperiodic, F3 wPLI, F4 complexity, F5 Riemannian tangent space at the training-fold Riemannian mean); level 2 = L2-LR on [age, sex_male, B1-B4, five inner-OOF family scores (logit)]'
+  M_acq: '(secondary) M_base and M_full each plus the 7 acquisition proxies of A2'
+  regularisation: 'C = 1.0, class_weight balanced (as A1/A2 LR members), on standardised inputs for every LR; fixed, no tuning'
+  sensitivity_models:
+    - 'inner-CV-tuned C in {0.01, 0.1, 1, 10} (both arms)'
+    - 'spectral-only EEG block (POST-HOC, labelled as such: spectral was best on seen L1 results)'
+  voting_ensembles: 'not part of RQ1; existing A2 results retained as a comparison arm'
+
+# ---------------------------------------------------------------- 3. leakage-safe procedure
+leakage_rules:
+  - 'one participant is one unit; all windows and all recordings (L1/L6/L11, Emotiv) of a participant fall in the same outer fold'
+  - 'outer CV: StratifiedKFold(5, shuffle, seed=r), r = 0..9 (identical splits for M_base and M_full)'
+  - 'inner CV: StratifiedKFold(5, shuffle, seed=1000*r+k) on the outer-training participants only'
+  - 'every learned step is fitted on outer-training data only: scaling, imputation (median + missing indicator), Riemannian reference mean, tangent-space projection, family models, meta-model, calibration, thresholds'
+  - 'meta-model trained on inner-OOF family scores of the outer-training set; at test time family models are refit on the full outer-training set and applied to the test fold'
+  - 'no feature selection or hyperparameter choice uses test-fold labels; no global (all-participant) normalisation'
+  - 'Platt or isotonic calibration (only used for Brier and calibration reporting) fitted inside the outer-training fold'
+  - 'fold-0 reproducibility check against a re-run before any result is read (as in A1)'
+
+# ---------------------------------------------------------------- 4. behaviour scoring (Slackline L1 TAGS)
+behaviour:
+  source: '''*_TAGS_*.csv'' in SlacklineLvl1 (same session as the CGX EEG); denominators from slackline_flags_info.json'
+  definitions:
+    target: 'flagType == 0 (circle); Level 1 has 23 targets of 51 flags (verified)'
+    non_target: 'flagType in {1,2,3}; Level 1 has 28'
+    hit: 'target row with reacted == True and duplicated == False'
+    omission: 'target in flags file without a hit'
+    commission: 'non-target row with reacted == True and duplicated == False'
+    duplicate_press: 'row with duplicated == True (any flagType)'
+    no_flag_press: 'row with flagType == -1'
+  features_in_model:
+    B1_omission_rate: 'omissions / 23'
+    B2_commission_rate: 'commissions / 28'
+    B3_mean_RT_hits: 'mean reactionTime over hits (s)'
+    B4_RT_cv_hits: 'SD / mean of reactionTime over hits'
+  descriptive_only: [ex-Gaussian tau (23 trials; unstable), duplicate_press per min, no_flag_press per min, RT SD]
+  validity_rules:
+    s1: 'TAGS file present and parseable, else child excluded from RQ1'
+    s2: 'flag counts in TAGS consistent with flags file (no target index beyond 23) else flagged and excluded'
+    s3: 'hits < 3 -> B3/B4 missing (imputed in-fold, with missing indicator)'
+    s4: 'RQ1 sample = A2 set minus s1/s2 exclusions; report n and label split of excluded children'
+  sensitivity: 'include excluded children with in-fold imputation of all four B features'
+  pending_checks: 'semantics of duplicated and flagType -1 (ask dataset authors, Q5)'
+
+# ---------------------------------------------------------------- 5. primary estimand and inference (RQ1)
+primary:
+  estimand: 'dAUC = AUC(M_full) - AUC(M_base), participant-level, pooled OOF scores averaged over 10 outer repeats'
+  hypothesis: 'H0 EEG carries no information about the label beyond age, sex and B1-B4; H1 dAUC > 0 (one-sided; Q3)'
+  test:
+    method: 'stratified EEG-block permutation through the whole nested pipeline'
+    procedure:
+      - 'permute whole EEG feature rows (all five families together) across participants within strata of age band (2-year) x sex; labels, demographics and behaviour stay fixed'
+      - 're-run the complete nested pipeline (both arms, same splits) and record dAUC_perm'
+      - 'B = 1000 permutations; R = 3 outer repeats (seeds 0-2) per permutation and for the observed statistic used in the p-value (timing test on shuffled labels: about 2.3 h). The reported point estimate and CI use R = 10 (seeds 0-9).'
+      - 'p = (1 + #{dAUC_perm >= dAUC_obs}) / (B + 1)'
+    assumptions: 'exchangeability of EEG rows within age x sex strata under H0'
+    limitation: 'approximate conditional test; EEG-behaviour dependence is broken by permutation, so H0 is slightly stronger than conditional independence given behaviour (statistician question Q4)'
+  interval: 'stratified participant bootstrap (2000) of dAUC on the averaged OOF scores, percentile 95% CI; interpretation: conditional on fitted models; does not include training variability; likely too narrow (Bates et al. 2024)'
+  secondary_estimand: 'd log-loss (base minus full) reported descriptively with participant-bootstrap CI; nested-CV standard error not performed (compute)'
+  also_reported: 'AUC of each arm, mean per-fold AUC, balanced accuracy, Brier, calibration slope, DeLong (descriptive)'
+  smallest_effect_of_interest: '0.05 AUC, candidate only; reported against the CI; no power claim'
+  precision_note: 'simulation-only power for true dAUC 0.05 at n=79/42 is ~0.34-0.50 under oracle weights (results/A3_sim_power_simulation_only.csv); a null result is the expected outcome unless the effect is larger'
+  alpha: 0.05
+
+# ---------------------------------------------------------------- 6. RQ1 secondary contrasts (Holm family S)
+rq1_secondary:
+  tested_contrasts:
+    - 'dAUC(M_full_acq - M_base_acq)'
+    - 'dAUC(EEG+demographics - demographics) (no behaviour; links to A2)'
+  robustness_only:
+    - 'dAUC(M_full - M_base) under labels S1 and S2 (not in Holm family)'
+  inference: 'same permutation scheme with R = 1, B = 500; Holm across the two tested contrasts'
+
+# ---------------------------------------------------------------- 7. RQ2 within-session cross-level reliability
+rq2a_reliability:
+  data: 'CGX Slackline L1, L6, L11 (same session, increasing difficulty), A2 preprocessing, same participants'
+  unit: 'participant; label-free'
+  icc: 'ICC(A,1) two-way, absolute agreement (primary) and ICC(C,1) two-way, consistency (McGraw-Wong forms; Koo & Li 2016)'
+  level: 'each feature; summarised per family as median and IQR; plus ICC of each family''s model score'
+  ci: 'participant bootstrap 2000'
+  interpretation: 'descriptive; no significance tests; levels differ in difficulty so systematic shifts are expected'
+rq2b_level_transfer:
+  design: 'train on L1 of outer-training participants, test on L6/L11 of held-out participants (and the reverse); compared with within-level CV on the same splits'
+  status: 'exploratory; AUC with bootstrap CI; label-permutation p reported uncorrected'
+
+# ---------------------------------------------------------------- 8. transfer and follow-up hypothesis
+rq3_device_task_day:
+  data: 'Emotiv EPOC X/+ (14 ch, 128 Hz) in AttentionRobotsDesktop and Cognifit; 10 channels shared with CGX/Nasrabadi (F7, F3, T7, P7, O1, O2, P8, T8, F4, F8)'
+  design: 'participant-disjoint CGX -> Emotiv and Emotiv -> CGX on shared channels; within-Emotiv CV as reference'
+  limitation: 'device, game, reference and (often) day change together'
+  status: 'exploratory, descriptive'
+rq4_cross_cohort:
+  design: 'as A2 cross_cohort.py (none vs per-cohort unsupervised alignment), plus 7-12 y range'
+  status: 'exploratory, descriptive; cohort identifiability reported'
+H_wPLI:
+  statement: 'a wPLI model trained on Nasrabadi (10 shared channels) ranks BALLADEER children above chance'
+  test_data: 'BALLADEER L6 and L11 CGX, and Emotiv AttentionRobots, ages 7-12 (recordings not yet analysed)'
+  test: 'one-sided label-permutation (1000) per test set; Holm across the three'
+  caveat: 'same children as the L1 data that generated the hypothesis; new recordings, not new participants; a positive result is supportive, not an independent replication'
+
+# ---------------------------------------------------------------- 9. multiplicity
+multiplicity:
+  primary: 'one test, alpha 0.05, no correction'
+  family_S: 'Holm across RQ1 secondary tested contrasts'
+  family_H: 'Holm across the three H_wPLI tests'
+  descriptive: 'RQ2a, all CIs, model-level tables'
+  exploratory: 'RQ2b, RQ3, RQ4 p-values uncorrected and labelled exploratory'
+
+# ---------------------------------------------------------------- 10. gates before locking
+decisions_at_lock:
+  Q1_primary_label: 'diagnosed yes vs no (user decision)'
+  Q3_sidedness: 'one-sided (accepted with A3 approval)'
+  Q4_permutation_null: 'EEG rows permuted within 2-year age band x sex strata (accepted with A3 approval)'
+  Q5_behaviour_rules: 'accepted as written in section 4 (user decision)'
+  Q6_intervals: 'participant bootstrap, labelled conditional on fitted models; no nested-CV SE'
+  Q7_scope: 'RQ3 (Emotiv) kept in this paper (user decision)'
+  Q8_disclosure: 'internal record kept here; paper wording pending user decision'
+  data_source: 'figshare release (user statement 2026-10-20); earlier logs that say Kaggle copy refer to the same files'
+
+implementation:
+  rq1_code: 'src/rq1_A3.py (modes: timing, run)'
+  behaviour_code: 'src/score_behaviour_A3.py -> derived/behaviour_L1_A3.csv'
+  file_inventory: 'balladeer/A3_file_inventory_121.csv'
+  run_plan:
+    - 'python src/rq1_A3.py run primary 3 1000 primary_test      # p-value'
+    - 'python src/rq1_A3.py run primary 10 0 primary_est        # point estimate, OOF scores for bootstrap CI'
+    - 'secondary family S: R = 1, B = 500 per tested contrast; S1/S2 point estimates R = 10, B = 0'
+
+gate_status_at_lock:
+  G1_release: 'source confirmed as figshare by user; 158 vs 164 count unresolved (does not block RQ1)'
+  G2_behaviour: 'PASS: 121/121 TAGS present, parsed and consistent with flags file (s1-s2); 0 with fewer than 3 hits'
+  G3_emotiv: 'PASS on presence: AttentionRobots Emotiv file for 102/121 (smallest 13.7 MB, about 3.4 min at 128 Hz); channels checked at conversion'
+  G4_matching: 'PASS: all 121 L1 TAGS sit in the same session folder as the analysed CGX L1 file; L6 CGX 118/121, L11 CGX 117/121'
+  G5_literature: 'scoop search repeated 2026-10-20 (none found); two bibliographic records incomplete (citation only, not analysis-blocking)'
+  G6_statistics: 'timing test done on shuffled labels; Q3/Q4/Q6 settled as above'
+
+gates:
+  G1_release: 'official figshare demographics/README matches the Kaggle copy for the analysed users (needs user download)'
+  G2_behaviour: '>= 90% of the 121 children pass s1-s2'
+  G3_emotiv: '>= 80 of 121 children have an Emotiv recording with the 14 expected channels and >= 3 min of signal'
+  G4_matching: 'UB ids consistent across CGX levels, TAGS, Emotiv and demographics'
+  G5_literature: 'scoop search repeated; Geethapriya/Gutierrez-Jacome bibliographic fields completed'
+  G6_statistics: 'Q3, Q4, Q6 answered (you or a statistician); permutation timing test on permuted data only'
+  rule: 'if G2 fails, the RQ1 behaviour source switches to Attention Robots GAME_DATA (different day, stated); if G3 fails, RQ3 is dropped'

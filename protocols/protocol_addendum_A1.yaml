@@ -1,0 +1,22 @@
+# Addendum A1 — written AFTER the main results were seen (2026-10-20), BEFORE running these analyses.
+# Status: planned confirmation of an exploratory observation (prediction-level increment over confounds).
+# Outer/inner CV, seeds, members and confound set identical to protocol.yaml.
+
+question: Does combining neural predictions with the confound benchmark improve participant-level AUC
+          over the confound benchmark alone, under fully nested evaluation, and is the gain explained by the EMG proxy?
+
+models:                      # meta-learner = L2-LR (C=1) fit on inner out-of-fold probabilities of the outer-training set
+  S_all:  inputs = confound-vote probability + all 30 neural member probabilities      # PRIMARY (not outcome-selected)
+  S_E6:   inputs = confound-vote probability + E6 (confound-aware weighted) probability
+  S_E5:   inputs = confound-vote probability + E5 (top-5) probability
+  note: E6/E5 inner inputs use weights/selection from the same inner OOF (affects meta-coefficients only; test participants never used)
+
+tests:                       # repeat-averaged OOF scores; Holm across the 3
+  A1_T1: S_all vs B0_confound_vote, DeLong + bootstrap CI of delta
+  A1_T2: S_E6  vs B0_confound_vote
+  A1_T3: S_E5  vs B0_confound_vote
+
+emg_checks:                  # descriptive / exploratory
+  - LRT of neural score (E6, E5, S_all neural part) over confounds modelled nonlinearly (natural cubic splines, df=3 per confound)
+  - AUC of neural scores within EMG-proxy tertiles (stratified), and AUC of EMG proxy alone
+  - neural members restricted to non-temporal channels (drop T7, T8, F7, F8, P7, P8): E2/E5/E6 re-run (channel families F1-F4; F5 covariance on remaining 13 channels)

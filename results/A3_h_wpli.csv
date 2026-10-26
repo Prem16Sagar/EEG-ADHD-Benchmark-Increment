@@ -1,0 +1,4 @@
+analysis,train,test,model,n,n_pos,AUC,CI_lo,CI_hi,p_one_sided,p_holm
+H_wPLI,Nasrabadi (all 121),CGX_L6 (7-12 y),F3_wPLI_LR,64,49,0.4531,0.2993,0.6136,0.6973,1.0
+H_wPLI,Nasrabadi (all 121),CGX_L11 (7-12 y),F3_wPLI_LR,62,47,0.556,0.3744,0.7305,0.2597,0.7792
+H_wPLI,Nasrabadi (all 121),Emotiv_AR (7-12 y),F3_wPLI_LR,52,42,0.3595,0.1952,0.5357,0.9201,1.0
