@@ -1,0 +1,5 @@
+class_ratio,eeg_weight_factor,n_for_80pct_power_interpolated
+79:42 (as in the study),1.0,401
+79:42 (as in the study),0.5,204
+1:1 (balanced),1.0,361
+1:1 (balanced),0.5,193

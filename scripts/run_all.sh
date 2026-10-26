@@ -51,3 +51,7 @@ python src/posthoc_A4.py s6 500
 
 # --- Figures ---
 python src/figures_SciRep.py
+
+# --- Added in v1.0.1 (no analysis code changed) ---
+python src/sim_samplesize_A3.py                     # post hoc sample-size simulation, Supplementary Table S1d (about 2 min)
+python -m pytest tests                              # automated leakage checks (about 1 min); add --runslow for the full re-run

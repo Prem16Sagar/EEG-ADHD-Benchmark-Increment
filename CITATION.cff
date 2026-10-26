@@ -8,6 +8,6 @@ authors:
   - family-names: "S."
     given-names: "Ruban"
     affiliation: "School of Engineering, St Aloysius (Deemed to be University), Mangaluru, India"
-version: "1.0.0"
+version: "1.0.1"
 license: MIT
 repository-code: "https://github.com/Prem16Sagar/EEG-ADHD-Benchmark-Increment"

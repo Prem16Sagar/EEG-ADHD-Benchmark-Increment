@@ -47,14 +47,37 @@ python src/rq1_A3.py run primary 10 0 mycheck
 
 **Full pipeline:** `scripts/run_all.sh` lists every step in order, from raw data to figures.
 
+Figure and table numbers below follow the submitted manuscript. Its Figure 1 is a schematic of the workflow and is not generated from data; Figures 2–5 are `figures/SR_Fig1`–`SR_Fig4`.
+
 | Paper item | Script(s) | Result file(s) |
 |---|---|---|
-| Table 1, Fig. 1 | `src/rq1_A3.py` (`load`), `src/figures_SciRep.py` | `results/SR_display_numbers.csv` |
-| Fig. 2 (benchmarks) | `run_ensembles.py`, `analyse.py`, `run_a1.py`, `analyse_a1.py`, `run_cohort.py`, `analyse_cohort.py`, `posthoc_A4.py s5` | `results/table_all_methods.csv`, `a1_table_*.csv`, `balladeer_primary_table_*.csv`, `A4/S5_*.csv` |
-| Table 2, Fig. 3 (increment) | `rq1_A3.py`, `rq1_A3_sec.py`, `analyse_rq1_A3.py`, `posthoc_A4.py` | `results/A3_rq1_*`, `A3_rq1sec_*`, `A3_rq1_table.csv`, `A4/*`, `SR_A4_dlogloss.csv`, `SR_rq1_secondary_metrics.csv` |
-| Fig. 4 (stability, level transfer) | `balladeer_level.py`, `rq2_A3.py`, `rq2_age_posthoc.py` | `results/A3_rq2a_*.csv`, `A3_rq2b_transfer.csv`, `POSTHOC_rq2_age_adjusted_*.csv` |
+| Table 2, Fig. 2 (sample, age) | `src/rq1_A3.py` (`load`), `src/figures_SciRep.py` | `results/SR_display_numbers.csv` |
+| Fig. 3 (benchmarks) | `run_ensembles.py`, `analyse.py`, `run_a1.py`, `analyse_a1.py`, `run_cohort.py`, `analyse_cohort.py`, `posthoc_A4.py s5` | `results/table_all_methods.csv`, `a1_table_*.csv`, `balladeer_primary_table_*.csv`, `A4/S5_*.csv` |
+| Table 3, Fig. 4 (increment) | `rq1_A3.py`, `rq1_A3_sec.py`, `analyse_rq1_A3.py`, `posthoc_A4.py` | `results/A3_rq1_*`, `A3_rq1sec_*`, `A3_rq1_table.csv`, `A4/*`, `SR_A4_dlogloss.csv`, `SR_rq1_secondary_metrics.csv` |
+| Fig. 5 (stability, level transfer) | `balladeer_level.py`, `rq2_A3.py`, `rq2_age_posthoc.py` | `results/A3_rq2a_*.csv`, `A3_rq2b_transfer.csv`, `POSTHOC_rq2_age_adjusted_*.csv` |
 | Device, wPLI and cross-dataset analyses | `shared10.py`, `rq34_A3.py` | `results/A3_rq3_device_transfer.csv`, `A3_h_wpli.csv`, `A3_rq4_cross_cohort10.csv` |
 | Power simulation | `sim_power_A3.py` | `results/A3_sim_power_simulation_only.csv` |
+| Sample size for 80% power (Supplementary Table S1d; added in v1.0.1, post hoc) | `sim_samplesize_A3.py` | `results/A3_sim_samplesize_simulation_only.csv`, `A3_sim_samplesize_n80.csv` |
+
+## Automated leakage checks (added in v1.0.1)
+
+```
+pip install -r requirements.txt
+python -m pytest tests -v              # about 1 minute
+python -m pytest tests -v --runslow    # also re-runs the primary estimate from derived/
+```
+
+The tests use the released derived features and result files; the raw EEG is not needed. They check that:
+
+1. every feature table has one row per participant, so participant-wise folds cannot split a child;
+2. labels and identifiers are never used as predictors, and the feature-extraction functions never read labels;
+3. the outer folds partition the participants, and the released out-of-fold score files (`results/*oof*`) were produced from exactly these participant-wise folds;
+4. in instrumented runs of the real fitting code (primary analysis, ensemble arm and addendum A1), no model or preprocessing step is ever fitted on a participant from the corresponding test fold. Every `fit()` is recorded through a wrapper around the pipelines, on a copy of the data in which each value encodes the participant;
+5. the permutation test permutes only EEG rows, only within age-band x sex strata, and never the labels;
+6. pure-noise EEG adds nothing to the base model;
+7. (`--runslow`) the primary estimate is reproduced from `derived/` (out-of-fold scores within 1e-6).
+
+The checks were also verified to fail when a leak is introduced on purpose (fitting on all participants, an inner split over all participants, mismatched folds, duplicated participant rows).
 
 ## Protocols
 
@@ -81,7 +104,7 @@ Before release, these were checked to reproduce the stored outputs exactly: the 
 
 ## Use of AI tools
 
-The code was written and run with the assistance of an AI system (Claude, Anthropic) under the direction of the first author, as described in the paper's Methods. The first author independently reproduced the primary analysis (`verification/`).
+The code was written and run with the assistance of an AI system (Claude, Anthropic) under the direction of the first author, as described in the paper's Methodology. The leakage checks and the sample-size simulation added in v1.0.1 were written in the same way. The first author independently reproduced the primary analysis (`verification/`).
 
 ## Licence and citation
 
